@@ -4,8 +4,11 @@ using ScreenSound.Modelos;
 
 try
 {
-    var connection = new Connection();
-    var lista = connection.Listar();
+    var artistaDAL = new ArtistaDAL();
+
+    artistaDAL.Adicionar(new Artista("Legião Urbana", "Banda Legião Urbana"));
+
+    var lista = artistaDAL.Listar();
 
     foreach (var artista in lista)
     {
@@ -17,6 +20,8 @@ catch (Exception ex)
     Console.WriteLine("Não foi possível conectar ao banco de dados.");
     Console.WriteLine(ex.Message);    
 }
+
+Console.ReadKey();
 
 Artista ira = new Artista("Ira!", "Banda Ira!");
 Artista beatles = new("The Beatles", "Banda The Beatles");

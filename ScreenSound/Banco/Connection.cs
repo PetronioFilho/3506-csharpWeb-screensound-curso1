@@ -11,30 +11,6 @@ namespace ScreenSound.Banco
         {
             var conn = new SqlConnection(connectionString);
             return conn;
-        }
-
-        public IEnumerable<Artista> Listar()
-        {
-            var lista = new List<Artista>();
-
-            using var conexao = ObterConexao();
-            conexao.Open();
-            var sql = "SELECT * FROM Artistas";
-            using var comando = new SqlCommand(sql, conexao);
-            using SqlDataReader sqlDataReader = comando.ExecuteReader();
-
-            while (sqlDataReader.Read())
-            {
-                var artista = new Artista(
-                    sqlDataReader["Nome"].ToString()!,
-                    sqlDataReader["Bio"].ToString()!
-                );
-                artista.Id = (int)sqlDataReader["Id"];
-                artista.FotoPerfil = sqlDataReader["FotoPerfil"].ToString()!;
-                lista.Add(artista);
-            }
-
-            return lista;
-        }
+        }       
     }
 }
