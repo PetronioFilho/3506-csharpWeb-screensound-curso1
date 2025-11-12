@@ -4,17 +4,19 @@ using ScreenSound.Modelos;
 
 try
 {
-    using var connection = new Connection().ObterConexao();
-    connection.Open();
-    Console.WriteLine(connection.State);
+    var connection = new Connection();
+    var lista = connection.Listar();
+
+    foreach (var artista in lista)
+    {
+        Console.WriteLine($"Artista: {artista.Nome} - Bio: {artista.Bio}");
+    }
 }
 catch (Exception ex)
 {
     Console.WriteLine("Não foi possível conectar ao banco de dados.");
     Console.WriteLine(ex.Message);    
 }
-
-return;
 
 Artista ira = new Artista("Ira!", "Banda Ira!");
 Artista beatles = new("The Beatles", "Banda The Beatles");
