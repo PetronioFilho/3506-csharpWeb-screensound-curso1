@@ -2,33 +2,8 @@
 using ScreenSound.Menus;
 using ScreenSound.Modelos;
 
-try
-{
-    var artistaDAL = new ArtistaDAL();
-
-    artistaDAL.Adicionar(new Artista("Legião Urbana", "Banda Legião Urbana"));
-
-    var lista = artistaDAL.Listar();
-
-    foreach (var artista in lista)
-    {
-        Console.WriteLine($"Artista: {artista.Nome} - Bio: {artista.Bio}");
-    }
-}
-catch (Exception ex)
-{
-    Console.WriteLine("Não foi possível conectar ao banco de dados.");
-    Console.WriteLine(ex.Message);    
-}
-
-Console.ReadKey();
-
-Artista ira = new Artista("Ira!", "Banda Ira!");
-Artista beatles = new("The Beatles", "Banda The Beatles");
-
-Dictionary<string, Artista> artistasRegistrados = new();
-artistasRegistrados.Add(ira.Nome, ira);
-artistasRegistrados.Add(beatles.Nome, beatles);
+var context = new ScreenSoundContext();
+var artistaDAL = new ArtistaDAL(context);
 
 Dictionary<int, Menu> opcoes = new();
 opcoes.Add(1, new MenuRegistrarArtista());
@@ -67,7 +42,7 @@ void ExibirOpcoesDoMenu()
     if (opcoes.ContainsKey(opcaoEscolhidaNumerica))
     {
         Menu menuASerExibido = opcoes[opcaoEscolhidaNumerica];
-        menuASerExibido.Executar(artistasRegistrados);
+        menuASerExibido.Executar(artistaDAL);
         if (opcaoEscolhidaNumerica > 0) ExibirOpcoesDoMenu();
     } 
     else
