@@ -3,7 +3,6 @@ using ScreenSound.Menus;
 using ScreenSound.Modelos;
 
 var context = new ScreenSoundContext();
-var artistaDAL = new ArtistaDAL(context);
 
 Dictionary<int, Menu> opcoes = new();
 opcoes.Add(1, new MenuRegistrarArtista());
@@ -39,16 +38,16 @@ void ExibirOpcoesDoMenu()
     string opcaoEscolhida = Console.ReadLine()!;
     int opcaoEscolhidaNumerica = int.Parse(opcaoEscolhida);
 
-    if (opcoes.ContainsKey(opcaoEscolhidaNumerica))
-    {
-        Menu menuASerExibido = opcoes[opcaoEscolhidaNumerica];
-        menuASerExibido.Executar(artistaDAL);
-        if (opcaoEscolhidaNumerica > 0) ExibirOpcoesDoMenu();
-    } 
-    else
-    {
-        Console.WriteLine("Opção inválida");
-    }
+    //if (opcoes.ContainsKey(opcaoEscolhidaNumerica))
+    //{
+    //    Menu menuASerExibido = opcoes[opcaoEscolhidaNumerica];
+    //    menuASerExibido.Executar(artistaDAL);
+    //    if (opcaoEscolhidaNumerica > 0) ExibirOpcoesDoMenu();
+    //} 
+    //else
+    //{
+    //    Console.WriteLine("Opção inválida");
+    //}
 }
 
 ExibirOpcoesDoMenu();
