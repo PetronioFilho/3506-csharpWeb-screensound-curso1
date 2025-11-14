@@ -5,7 +5,6 @@ namespace ScreenSound.Banco
 {
     public class ScreenSoundContext : DbContext
     {
-
         public DbSet<Artista> Artistas { get; set; }
         public DbSet<Musica> Musicas { get; set; }
 
@@ -13,9 +12,12 @@ namespace ScreenSound.Banco
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder
-                .UseSqlServer(connectionString)
-                .UseLazyLoadingProxies();
-        }        
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(connectionString) // REMOVA as aspas!
+                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+                    .UseLazyLoadingProxies(false);
+            }
+        }
     }
 }

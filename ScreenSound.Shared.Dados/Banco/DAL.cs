@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,6 +37,7 @@ public class DAL<T> where T : class
 
     public T? RecuperarPor(Func<T, bool> condicao)
     {
-        return context.Set<T>().FirstOrDefault(condicao);
+        return context.Set<T>()        
+            .FirstOrDefault(condicao);
     }
 }
