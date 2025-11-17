@@ -9,8 +9,9 @@ builder.Services.AddDbContext<ScreenSoundContext>();
 builder.Services.AddTransient<DAL<Artista>>();
 builder.Services.AddTransient<DAL<Musica>>();
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
-// REMOVA a configuração do System.Text.Json e use APENAS isto:
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -21,5 +22,8 @@ var app = builder.Build();
 
 app.AddEndpointsArtistas();
 app.AddEndpointMusicas();
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.Run();
