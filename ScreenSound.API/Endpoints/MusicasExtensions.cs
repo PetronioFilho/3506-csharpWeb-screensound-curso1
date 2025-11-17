@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ScreenSound.API.Requests;
 using ScreenSound.Banco;
 using ScreenSound.Modelos;
 
@@ -27,8 +28,14 @@ namespace ScreenSound.API.Endpoints
                 return Results.Ok(musica);
             });
 
-            app.MapPost("/Musicas", ([FromServices] DAL<Musica> dal, Musica musica) =>
-            {
+            app.MapPost("/Musicas", ([FromServices] DAL<Musica> dal, DAL<Artista> dalArtista, MusicaRequest musicaRequest) =>
+            {                
+                var musica = new Musica(musicaRequest.nome)
+                {
+                    AnoLancamento = musicaRequest.anoLancamento,
+                    ArtistaId = musicaRequest.artistaId
+                };  
+
                 dal.Adicionar(musica);
                 return Results.Ok();
             });
