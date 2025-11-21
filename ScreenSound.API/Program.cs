@@ -2,12 +2,14 @@ using ScreenSound.Banco;
 using ScreenSound.Modelos;
 using Newtonsoft.Json;
 using ScreenSound.API.Endpoints;
+using ScreenSound.Shared.Modelos.Modelos;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ScreenSoundContext>();
 builder.Services.AddTransient<DAL<Artista>>();
 builder.Services.AddTransient<DAL<Musica>>();
+builder.Services.AddTransient<DAL<Genero>>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

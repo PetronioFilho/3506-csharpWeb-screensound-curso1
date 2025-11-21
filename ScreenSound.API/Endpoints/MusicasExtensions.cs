@@ -66,9 +66,7 @@ namespace ScreenSound.API.Endpoints
                 return Results.NoContent();
             });
 
-
             #endregion
-
         }
     }
 }
