@@ -2,6 +2,7 @@
 using ScreenSound.API.Requests;
 using ScreenSound.Banco;
 using ScreenSound.Modelos;
+using ScreenSound.Shared.Modelos.Modelos;
 
 namespace ScreenSound.API.Endpoints
 {
@@ -29,11 +30,12 @@ namespace ScreenSound.API.Endpoints
             });
 
             app.MapPost("/Musicas", ([FromServices] DAL<Musica> dal, DAL<Artista> dalArtista, MusicaRequest musicaRequest) =>
-            {                
+            {
                 var musica = new Musica(musicaRequest.nome)
                 {
                     AnoLancamento = musicaRequest.anoLancamento,
-                    ArtistaId = musicaRequest.artistaId
+                    ArtistaId = musicaRequest.artistaId,
+                    Generos = musicaRequest.generos is not null ? GeneroRequestConvert(musicaRequest.generos) : new List<Genero>()
                 };  
 
                 dal.Adicionar(musica);
@@ -67,6 +69,16 @@ namespace ScreenSound.API.Endpoints
             });
 
             #endregion
+        }
+
+        private static ICollection<Genero> GeneroRequestConvert(ICollection<GeneroRequest> generos)
+        {
+            return generos.Select(x => RequestToEntity(x)).ToList();
+        }
+
+        private static Genero RequestToEntity(GeneroRequest x)
+        {
+            return new Genero() { Nome = x.nome, Descricao = x.descricao };
         }
     }
 }
