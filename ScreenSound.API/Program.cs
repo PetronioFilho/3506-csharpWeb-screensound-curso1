@@ -24,6 +24,7 @@ var app = builder.Build();
 
 app.AddEndpointsArtistas();
 app.AddEndpointMusicas();
+app.AddEndpoinGeneros();
 
 app.UseSwagger();
 app.UseSwaggerUI();
