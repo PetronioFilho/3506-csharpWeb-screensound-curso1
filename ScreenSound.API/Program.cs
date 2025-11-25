@@ -3,10 +3,14 @@ using ScreenSound.Modelos;
 using Newtonsoft.Json;
 using ScreenSound.API.Endpoints;
 using ScreenSound.Shared.Modelos.Modelos;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<ScreenSoundContext>();
+builder.Services.AddDbContext<ScreenSoundContext>((options) => {
+    options.UseSqlServer(builder.Configuration["ConnectionStrings:ScreenSoundDB"])
+    .UseLazyLoadingProxies(false);
+});
 builder.Services.AddTransient<DAL<Artista>>();
 builder.Services.AddTransient<DAL<Musica>>();
 builder.Services.AddTransient<DAL<Genero>>();

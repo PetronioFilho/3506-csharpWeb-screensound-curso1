@@ -12,6 +12,8 @@ namespace ScreenSound.Banco
 
         private string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ScreenSoundv0;Integrated Security=True;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
 
+        //private string connectionString = @"Server=tcp:screensoundserversql.database.windows.net,1433;Initial Catalog=ScreenSound;Persist Security Info=False;User ID=petroniofilho;Password=Admin123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -20,6 +22,11 @@ namespace ScreenSound.Banco
                     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
                     .UseLazyLoadingProxies(false);
             }
+        }
+
+        public ScreenSoundContext(DbContextOptions options) : base(options)
+        {
+                
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
